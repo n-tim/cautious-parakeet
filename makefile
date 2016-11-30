@@ -25,6 +25,12 @@ include_path=-I $(source_dir) $(qt_includes)
 
 target=cautious-parakeet
 
+#pvs
+pvs=pvs-studio
+pvs_plog=plog-converter
+pvs_config=pvs.cfg
+pvs_output=temp/pvs-result
+
 all:
 	@echo 'me a baby'
 
@@ -34,11 +40,16 @@ build:$(objects)
 	@echo linking
 	@mkdir -p $(target_dir)
 	$(ld) $(ldflags) $(libs) $(objects) -o $(target_dir)/$(target)
+	@printf %120s'\n' | tr " " "-"
+	@echo pvs-studio analyze results:
+	@$(pvs_plog) -t errorfile -s $(pvs_config) $(pvs_output)
 
 $(build_dir)/%.o: $(source_dir)/%.cpp
 	@echo compiling $<
 	@mkdir -p $(dir $@)
 	$(cc) $(cflags) $(include_path) -o $@ $<
+	@mkdir -p $(dir $(pvs_output))
+	$(pvs) --cfg $(pvs_config) --output-file $(pvs_output) --source-file $< --cl-params $(cflags) $(include_path) $<
 
 $(build_dir)/%.o: $(build_dir)/%.cpp
 	@echo compiling moc $<
@@ -59,3 +70,4 @@ clean:
 	@clear
 	@echo cleaning
 	@rm -rf $(build_dir)
+	@rm -f $(pvs_output)
