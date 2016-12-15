@@ -1,0 +1,29 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "0.1.0",
+	"command": "sh",
+	"isShellCommand": true,
+	"args": ["-c"],
+	"showOutput": "always",
+	"tasks": [
+        { 
+            "taskName": "debug",
+            "args": ["make build build_flags=\"-O0 -g\""],
+    		"suppressTaskName": true,
+			"echoCommand": true
+        },
+        { 
+            "taskName": "release",
+            "args": ["make build build_flags=\"-O2\""],
+    		"suppressTaskName": true,
+			"echoCommand": true
+        },
+		{
+			"taskName": "clean",
+            "args": ["make clean"],
+    		"suppressTaskName": true,
+			"echoCommand": true
+		}
+    ]
+}

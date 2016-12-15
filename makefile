@@ -1,11 +1,10 @@
 cc=clang++
 ld=clang++
 mc=/usr/lib/x86_64-linux-gnu/qt5/bin/moc
-cflags=-c -std=c++11 -Wall -fPIC
+cflags=-c -std=c++11 -Wall -fPIC $(build_flags)
 ldflags=-std=c++11
 
 qt_includes=-I /usr/include/x86_64-linux-gnu/qt5
-
 qt_libs=-licui18n -licuuc -licudata -lQt5Core -lQt5Gui -lQt5Qml -lQt5Quick 
 
 libs=$(qt_libs)
@@ -62,12 +61,10 @@ $(build_dir)/moc_%.cpp: $(source_dir)/%.hpp
 	$(mc) -o $@ $<
 
 run:
-	@clear
 	@echo running $(target_dir)/$(target)
 	@./$(target_dir)/$(target)
 
 clean:
-	@clear
 	@echo cleaning
 	@rm -rf $(build_dir)
 	@rm -f $(pvs_output)
