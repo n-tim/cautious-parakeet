@@ -11,7 +11,8 @@
             "taskName": "debug",
             "args": ["make build build_flags=\"-O0 -g\""],
     		"suppressTaskName": true,
-			"echoCommand": true
+			"echoCommand": true,
+			"isBuildCommand": true
         },
         { 
             "taskName": "release",

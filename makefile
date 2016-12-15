@@ -60,11 +60,8 @@ $(build_dir)/moc_%.cpp: $(source_dir)/%.hpp
 	@mkdir -p $(dir $@)
 	$(mc) -o $@ $<
 
-run:
-	@echo running $(target_dir)/$(target)
-	@./$(target_dir)/$(target)
-
 clean:
 	@echo cleaning
 	@rm -rf $(build_dir)
 	@rm -f $(pvs_output)
+	@rm -f $(target_dir)/$(target)
